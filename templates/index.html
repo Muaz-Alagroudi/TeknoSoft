@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>PalBot</title>
+
+
+</head>
+<body>
+    <div class="container">
+        <h1>PalBot</h1>
+        <div class="chat-box" id="chat-box">
+            {% for message in message_history %}
+                {% if message.type == 'user' %}
+                    <div class="message user-message">
+                        <p>{{ message.content }}</p>
+                    </div>
+                {% else %}
+                    <div class="message bot-message">
+                        <p>{{ message.content }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form method="post" class="form">
+            <input type="text" name="user_input" id="user-input" autofocus placeholder="ask a question, type 'help' for rules" autocomplete="off">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+    <script>
+        // Scroll chat box to bottom on load and after adding new message
+        document.addEventListener("DOMContentLoaded", function() {
+            var chatBox = document.getElementById('chat-box');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    </script>
+</body>
+</html>
